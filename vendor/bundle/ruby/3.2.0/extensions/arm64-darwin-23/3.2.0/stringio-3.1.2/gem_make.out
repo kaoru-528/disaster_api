@@ -3,17 +3,17 @@ current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/stri
 creating Makefile
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.2/ext/stringio
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-rxx2ju sitelibdir\=./.gem.20241119-81253-rxx2ju clean
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-d85l4c sitelibdir\=./.gem.20241119-95746-d85l4c clean
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.2/ext/stringio
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-rxx2ju sitelibdir\=./.gem.20241119-81253-rxx2ju
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-d85l4c sitelibdir\=./.gem.20241119-95746-d85l4c
 compiling stringio.c
 linking shared-object stringio.bundle
 ld: warning: ignoring duplicate libraries: '-lruby.3.2'
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.2/ext/stringio
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-rxx2ju sitelibdir\=./.gem.20241119-81253-rxx2ju install
-/usr/bin/install -c -m 0755 stringio.bundle ./.gem.20241119-81253-rxx2ju
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-d85l4c sitelibdir\=./.gem.20241119-95746-d85l4c install
+/usr/bin/install -c -m 0755 stringio.bundle ./.gem.20241119-95746-d85l4c
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.2/ext/stringio
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-rxx2ju sitelibdir\=./.gem.20241119-81253-rxx2ju clean
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-d85l4c sitelibdir\=./.gem.20241119-95746-d85l4c clean

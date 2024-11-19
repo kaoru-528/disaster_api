@@ -14,10 +14,10 @@ checking for sys/resource.h... yes
 creating Makefile
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-bbyhfs sitelibdir\=./.gem.20241119-81253-bbyhfs clean
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-8svq3g sitelibdir\=./.gem.20241119-95746-8svq3g clean
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-bbyhfs sitelibdir\=./.gem.20241119-81253-bbyhfs
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-8svq3g sitelibdir\=./.gem.20241119-95746-8svq3g
 compiling bytebuffer.c
 compiling monitor.c
 compiling nio4r_ext.c
@@ -361,8 +361,8 @@ linking shared-object nio4r_ext.bundle
 ld: warning: ignoring duplicate libraries: '-lruby.3.2'
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-bbyhfs sitelibdir\=./.gem.20241119-81253-bbyhfs install
-/usr/bin/install -c -m 0755 nio4r_ext.bundle ./.gem.20241119-81253-bbyhfs
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-8svq3g sitelibdir\=./.gem.20241119-95746-8svq3g install
+/usr/bin/install -c -m 0755 nio4r_ext.bundle ./.gem.20241119-95746-8svq3g
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-bbyhfs sitelibdir\=./.gem.20241119-81253-bbyhfs clean
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-8svq3g sitelibdir\=./.gem.20241119-95746-8svq3g clean

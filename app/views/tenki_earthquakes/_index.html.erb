@@ -1,0 +1,16 @@
+<h1>tenki.jpの地震情報</h1>
+
+<% if earthquakes.any? %>
+  <ul>
+    <% earthquakes.each do |earthquake| %>
+      <li>
+        発生時刻: <%= earthquake[:time] %>, 
+        震源地: <%= earthquake[:epicenter] %>, 
+        マグニチュード: <%= earthquake[:magnitude] %>, 
+        最大震度: <%= earthquake[:maximum_intensity] %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>地震情報がありません。</p>
+<% end %>

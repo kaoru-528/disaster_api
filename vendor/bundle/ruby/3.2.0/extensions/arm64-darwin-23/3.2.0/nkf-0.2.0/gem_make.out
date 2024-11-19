@@ -1,0 +1,19 @@
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+/Users/tozawa/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ufqlc6 sitelibdir\=./.gem.20241119-95746-ufqlc6 clean
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ufqlc6 sitelibdir\=./.gem.20241119-95746-ufqlc6
+compiling nkf.c
+linking shared-object nkf.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ufqlc6 sitelibdir\=./.gem.20241119-95746-ufqlc6 install
+/usr/bin/install -c -m 0755 nkf.bundle ./.gem.20241119-95746-ufqlc6
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ufqlc6 sitelibdir\=./.gem.20241119-95746-ufqlc6 clean
