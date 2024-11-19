@@ -10,3 +10,7 @@
   <p>地震情報がありません。</p>
 <% end %>
 <%= render partial: 'tenki_earthquakes/index', locals: { earthquakes: @tenki_earthquakes } %>
+
+<p>
+  <%= link_to '降水確率の平均を確認する', weather_path %>
+</p>
