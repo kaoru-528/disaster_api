@@ -6,10 +6,10 @@ checking for altzone in time.h with  -Werror... no
 creating Makefile
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/date-3.4.0/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-5f1hzt sitelibdir\=./.gem.20241119-81253-5f1hzt clean
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ynrgnf sitelibdir\=./.gem.20241119-95746-ynrgnf clean
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/date-3.4.0/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-5f1hzt sitelibdir\=./.gem.20241119-81253-5f1hzt
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ynrgnf sitelibdir\=./.gem.20241119-95746-ynrgnf
 compiling date_core.c
 compiling date_parse.c
 compiling date_strftime.c
@@ -18,8 +18,8 @@ linking shared-object date_core.bundle
 ld: warning: ignoring duplicate libraries: '-lruby.3.2'
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/date-3.4.0/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-5f1hzt sitelibdir\=./.gem.20241119-81253-5f1hzt install
-/usr/bin/install -c -m 0755 date_core.bundle ./.gem.20241119-81253-5f1hzt
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ynrgnf sitelibdir\=./.gem.20241119-95746-ynrgnf install
+/usr/bin/install -c -m 0755 date_core.bundle ./.gem.20241119-95746-ynrgnf
 
 current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/date-3.4.0/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20241119-81253-5f1hzt sitelibdir\=./.gem.20241119-81253-5f1hzt clean
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-ynrgnf sitelibdir\=./.gem.20241119-95746-ynrgnf clean

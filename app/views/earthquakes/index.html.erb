@@ -1,0 +1,12 @@
+<h1>yahooAPIの地震情報一覧</h1>
+
+<% if @earthquakes.any? %>
+  <ul>
+    <% @earthquakes.each do |earthquake| %>
+      <li><%= earthquake.label %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>地震情報がありません。</p>
+<% end %>
+<%= render partial: 'tenki_earthquakes/index', locals: { earthquakes: @tenki_earthquakes } %>

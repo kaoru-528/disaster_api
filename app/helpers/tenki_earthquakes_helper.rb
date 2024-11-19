@@ -1,0 +1,2 @@
+module TenkiEarthquakesHelper
+end

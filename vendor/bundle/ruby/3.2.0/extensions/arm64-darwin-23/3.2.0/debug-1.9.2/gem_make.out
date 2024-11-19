@@ -1,0 +1,20 @@
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+/Users/tozawa/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-zsrib0 sitelibdir\=./.gem.20241119-95746-zsrib0 clean
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-zsrib0 sitelibdir\=./.gem.20241119-95746-zsrib0
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-zsrib0 sitelibdir\=./.gem.20241119-95746-zsrib0 install
+/usr/bin/install -c -m 0755 debug.bundle ./.gem.20241119-95746-zsrib0/debug
+
+current directory: /Users/tozawa/disaster_api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241119-95746-zsrib0 sitelibdir\=./.gem.20241119-95746-zsrib0 clean
