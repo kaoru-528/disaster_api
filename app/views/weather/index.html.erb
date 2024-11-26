@@ -1,7 +1,6 @@
 <h1>降水確率の平均</h1>
-
 <% if @average_precipitation.present? %>
-  <p>現在の平均降水確率: <%= @average_precipitation %>%</p>
+  <p>本日( <%= Date.today %> )の平均降水確率: <%= @average_precipitation %>%</p>
 <% else %>
   <p>降水確率のデータを取得できませんでした。</p>
 <% end %>
