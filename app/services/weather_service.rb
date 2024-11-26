@@ -1,25 +1,45 @@
-require 'httparty'
+require 'net/http'
+require 'json'
 
 class WeatherService
+  BASE_URL = 'https://weather.tsukumijima.net/api/forecast/city/'.freeze
+  HACHIOJI_ID = '130010'.freeze # 八王子市のID
+
   def self.fetch_precipitation_from_source_1
-    # 例: 気象庁APIのデータを取得
-    response = HTTParty.get('https://example.com/weather-api-source-1')
-    if response.success?
-      data = JSON.parse(response.body)
-      data['precipitation'] # 降水確率をパーセントで取得
+    url = URI.parse("#{BASE_URL}#{HACHIOJI_ID}")
+    response = Net::HTTP.get(url)
+    weather_data = JSON.parse(response)
+
+    if weather_data['forecasts'] && weather_data['forecasts'][0]['chanceOfRain']
+      chance_of_rain = weather_data['forecasts'][0]['chanceOfRain']
+      
+      chance_of_rain['T00_06'].to_i if chance_of_rain['T00_06']
     else
       nil
     end
+  rescue StandardError => e
+    Rails.logger.error("Error fetching precipitation: #{e.message}")
+    nil
   end
 
+  JMA_API_URL = 'https://www.jma.go.jp/bosai/forecast/data/forecast/130010.json'.freeze # 八王子市のコード
+
   def self.fetch_precipitation_from_source_2
-    # 例: OpenWeatherMap APIのデータを取得
-    response = HTTParty.get('https://example.com/weather-api-source-2')
-    if response.success?
-      data = JSON.parse(response.body)
-      data['rain']['1h'] # 1時間あたりの降水量
+    uri = URI(JMA_API_URL)
+    response = Net::HTTP.get(uri)
+    weather_data = JSON.parse(response)
+
+    area_name = weather_data[0].dig('timeSeries', 1, 'areas', 0, 'area', 'name')
+    pops = weather_data[0].dig('timeSeries', 1, 'areas', 0, 'pops')
+
+    if pops && pops[0]
+      puts "地域: #{area_name}, 降水確率: #{pops[0]}%"
+      pops[0].to_i
     else
       nil
     end
+  rescue StandardError => e
+    Rails.logger.error("Error fetching precipitation from JMA API: #{e.message}")
+    nil
   end
 end
