@@ -1,13 +1,14 @@
 require 'net/http'
 require 'json'
+require 'nokogiri'
 
 class WeatherService
   BASE_URL = 'https://weather.tsukumijima.net/api/forecast/city/'.freeze
-  HACHIOJI_ID = '130010'.freeze # 八王子市のID
-  JMA_API_URL = 'https://www.jma.go.jp/bosai/forecast/data/forecast/130010.json'.freeze # 八王子市のコード
-
-  def self.fetch_precipitation_from_source_1
-    url = URI.parse("#{BASE_URL}#{HACHIOJI_ID}")
+  # 定数を削除して、メソッド引数から受け取る設計に変更
+  
+  # 第一のソース用メソッド: city_idを引数で受け取る
+  def self.fetch_precipitation_from_source_1(city_id)
+    url = URI.parse("#{BASE_URL}#{city_id}")
     response = Net::HTTP.get(url)
     weather_data = JSON.parse(response)
 
@@ -22,8 +23,11 @@ class WeatherService
     nil
   end
 
-  def self.fetch_precipitation_from_source_2
-    uri = URI(JMA_API_URL)
+  # 第二のソース用メソッド: JMAのURL形式に合わせて、パラメータで地域コードを変更できるようにする
+  # 例えば、130010は八王子、他の地域は異なるコードを割り当てることが可能
+  def self.fetch_precipitation_from_source_2(jma_area_code)
+    jma_api_url = "https://www.jma.go.jp/bosai/forecast/data/forecast/#{jma_area_code}.json"
+    uri = URI(jma_api_url)
     response = Net::HTTP.get(uri)
     weather_data = JSON.parse(response)
 
@@ -41,33 +45,30 @@ class WeatherService
     nil
   end
 
-  def self.fetch_precipitation_from_source_3
-  # URIを設定
-  uri = URI('https://map.yahooapis.jp/weather/V1/place?coordinates=139.3667929,35.6613427&appid=dj00aiZpPUpKU2Nkd2Zxb2x1QiZzPWNvbnN1bWVyc2VjcmV0Jng9MTU-')
+  # 第三のソース用メソッド: 座標を引数で受け取り、Yahoo Weather APIのURLを動的に生成
+  def self.fetch_precipitation_from_source_3(latitude, longitude)
+    appid = 'dj00aiZpPUpKU2Nkd2Zxb2x1QiZzPWNvbnN1bWVyc2VjcmV0Jng9MTU-'
+    uri = URI("https://map.yahooapis.jp/weather/V1/place?coordinates=#{longitude},#{latitude}&appid=#{appid}")
 
-  # リクエストを送信
-  res = Net::HTTP.get_response(uri)
+    res = Net::HTTP.get_response(uri)
 
-  if res.is_a?(Net::HTTPSuccess)
-    # レスポンスボディをXMLとしてパース
-    xml = Nokogiri::XML(res.body)
+    if res.is_a?(Net::HTTPSuccess)
+      xml = Nokogiri::XML(res.body)
+      namespace = { 'ns' => 'http://olp.yahooapis.jp/ydf/1.0' }
 
-    # 名前空間を登録
-    namespace = { 'ns' => 'http://olp.yahooapis.jp/ydf/1.0' }
+      rainfall_values = xml.xpath('//ns:Rainfall', namespace).map(&:text).map(&:to_f)
 
-    # Rainfall値を抽出し、数値に変換
-    rainfall_values = xml.xpath('//ns:Rainfall', namespace).map(&:text).map(&:to_f)
-
-    # 平均値を計算
-    average_rainfall = (rainfall_values.sum / rainfall_values.size) * 100
-
-    # 結果を表示（平均降水量）
-    average_rainfall.round(2)
-  else
-    nil
-  end
+      if rainfall_values.any?
+        average_rainfall = (rainfall_values.sum / rainfall_values.size) * 100
+        average_rainfall.round(2)
+      else
+        nil
+      end
+    else
+      nil
+    end
   rescue StandardError => e
-    Rails.logger.error("Error fetching precipitation from JMA API: #{e.message}")
+    Rails.logger.error("Error fetching precipitation from Yahoo Weather API: #{e.message}")
     nil
   end
 end
