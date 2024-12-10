@@ -1,9 +1,6 @@
-<h1>八王子市の地震情報</h1>
-
-<% if @error.present? %>
-  <p style="color: red;"><%= @error %></p>
-<% else %>
-  <div style="border: 1px solid black; padding: 10px; margin-bottom: 20px;">
-    <%= @quake_info.html_safe %>
-  </div>
-<% end %>
+<p>
+  <%= link_to '地震情報を取得する', earthquakes_path %>
+</p>
+<p>
+  <%= link_to '降水確率の平均を確認する', weather_path %>
+</p>

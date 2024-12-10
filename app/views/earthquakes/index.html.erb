@@ -1,16 +1,15 @@
-<h1>yahooAPIの地震情報一覧</h1>
+<div class="earthquake-container">
+  <h1 class="earthquake-title">YahooAPIの地震情報一覧</h1>
 
-<% if @earthquakes.any? %>
-  <ul>
-    <% @earthquakes.each do |earthquake| %>
-      <li><%= earthquake.label %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>地震情報がありません。</p>
-<% end %>
-<%= render partial: 'tenki_earthquakes/index', locals: { earthquakes: @tenki_earthquakes } %>
+  <% if @earthquakes.any? %>
+    <ul class="earthquake-list">
+      <% @earthquakes.each do |earthquake| %>
+        <li class="earthquake-item"><%= earthquake.label %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="earthquake-message">地震情報がありません。</p>
+  <% end %>
 
-<p>
-  <%= link_to '降水確率の平均を確認する', weather_path %>
-</p>
+  <%= render partial: 'tenki_earthquakes/index', locals: { earthquakes: @tenki_earthquakes } %>
+</div>

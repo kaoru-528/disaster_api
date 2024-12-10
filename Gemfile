@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.3"
 
+gem 'bootstrap', '~> 5.3.0'
+
+gem 'jquery-rails'
+
 gem 'httparty'
 
 gem "selenium-webdriver"

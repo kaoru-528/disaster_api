@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'weather/index'
-  root 'earthquakes#index'
+  get 'earthquakes', to: 'earthquakes#index'
+  root 'scraping#index'
   get 'tenki_earthquakes', to: 'tenki_earthquakes#index'
   get 'weather', to: 'weather#index'
 end

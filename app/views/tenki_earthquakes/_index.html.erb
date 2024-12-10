@@ -1,16 +1,18 @@
-<h1>tenki.jpの地震情報</h1>
+<div class="tenki-earthquake-container">
+  <h1 class="tenki-earthquake-title">tenki.jpの地震情報</h1>
 
-<% if earthquakes.any? %>
-  <ul>
-    <% earthquakes.each do |earthquake| %>
-      <li>
-        発生時刻: <%= earthquake[:time] %>, 
-        震源地: <%= earthquake[:epicenter] %>, 
-        マグニチュード: <%= earthquake[:magnitude] %>, 
-        最大震度: <%= earthquake[:maximum_intensity] %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>地震情報がありません。</p>
-<% end %>
+  <% if earthquakes.any? %>
+    <ul class="tenki-earthquake-list">
+      <% earthquakes.each do |earthquake| %>
+        <li class="tenki-earthquake-item">
+          <strong>発生時刻:</strong> <%= earthquake[:time] %>, 
+          <strong>震源地:</strong> <%= earthquake[:epicenter] %>, 
+          <strong>マグニチュード:</strong> <%= earthquake[:magnitude] %>, 
+          <strong>最大震度:</strong> <%= earthquake[:maximum_intensity] %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="tenki-earthquake-message">地震情報がありません。</p>
+  <% end %>
+</div>

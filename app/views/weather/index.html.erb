@@ -1,25 +1,36 @@
-<h1>降水確率の平均</h1>
-<%= form_with url: weather_index_path, method: :get, local: true do |f| %>
-  <div>
-    <label>地域を選択:</label>
-    <%= f.select :region_code, options_for_select([
-      ['東京(八王子)', '130010'],
-      ['大阪', '270000'],
-      ['名古屋', '230000'],
-      ['札幌', '016010'],
-      ['仙台', '040010'],
-      ['福岡', '400010'],
-      ['広島', '340010'],
-      ['新潟', '150010'],
-      ['鹿児島', '460010']
-    ], selected: params[:region_code] || '130010') %>
+<div class="weather-container">
+  <h1 class="weather-title">降水確率の平均</h1>
 
-    <%= f.submit '天気を取得' %>
-  </div>
-<% end %>
+  <%= form_with url: weather_index_path, method: :get, local: true, class: "weather-form" do |f| %>
+    <div class="form-group">
+      <label for="region_code" class="form-label">地域を選択:</label>
+      <%= f.select :region_code, options_for_select([
+        ['東京(八王子)', '130010'],
+        ['大阪', '270000'],
+        ['名古屋', '230000'],
+        ['札幌', '016010'],
+        ['仙台', '040010'],
+        ['福岡', '400010'],
+        ['広島', '340010'],
+        ['新潟', '150010'],
+        ['鹿児島', '460010']
+      ], selected: params[:region_code] || '130010'), class: "form-select" %>
+    </div>
 
-<% if @average_precipitation %>
-  <p>選択地域の平均降水確率: <%= @average_precipitation %>%</p>
-<% else %>
-  <p>データが取得できませんでした。</p>
-<% end %>
+    <div class="form-actions">
+      <%= f.submit '天気を取得', class: "btn-submit" %>
+    </div>
+  <% end %>
+
+  <% if @average_precipitation %>
+    <div class="result-card">
+      <p>選択地域の平均降水確率: <span class="highlight"><%= @average_precipitation %>%</span></p>
+      <p>選択地域の最大降水確率: <span class="highlight"><%= @max_precipitation %>%</span></p>
+      <p>選択地域の最小降水確率: <span class="highlight"><%= @min_precipitation %>%</span></p>
+    </div>
+  <% else %>
+    <div class="error-card">
+      <p>データが取得できませんでした。</p>
+    </div>
+  <% end %>
+</div>

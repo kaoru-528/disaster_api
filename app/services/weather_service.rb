@@ -14,7 +14,23 @@ class WeatherService
 
     if weather_data['forecasts'] && weather_data['forecasts'][0]['chanceOfRain']
       chance_of_rain = weather_data['forecasts'][0]['chanceOfRain']
-      chance_of_rain['T18_24'].to_i if chance_of_rain['T18_24']
+      if chance_of_rain
+        # 対象となる時間帯キーのリスト
+        times = ['T00_06', 'T06_12', 'T12_18', 'T18_24']
+        # 存在するキーに対して、値を整数化して配列に格納
+        values = times.map { |t| chance_of_rain[t].to_i if chance_of_rain[t] }.compact
+        if values.any?
+          # 存在する値の平均
+          max_value = values.max
+          min_value = values.min
+          average_value = values.sum / values.size.to_f
+          { max: max_value, average: average_value, min: min_value }
+        else
+          nil
+        end
+      else
+        nil
+      end
     else
       nil
     end
