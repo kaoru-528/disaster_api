@@ -1,3 +1,4 @@
+require 'redis'
 class WeatherController < ApplicationController
   def index
     region_code = params[:region_code].presence || '130010'
@@ -19,19 +20,23 @@ class WeatherController < ApplicationController
     latitude = coords[:lat]
     longitude = coords[:lon]
 
-    appid = 'dj00aiZpPUpKU2Nkd2Zxb2x1QiZzPWNvbnN1bWVyc2VjcmV0Jng9MTU-'
-
+    # WeatherServiceクラスのメソッドが位置情報や地域コードを引数でとるように実装済みであることを想定
     source_1_precipitation = WeatherService.fetch_precipitation_from_source_1(region_code)
     source_2_precipitation = WeatherService.fetch_precipitation_from_source_2(region_code)
     source_3_precipitation = WeatherService.fetch_precipitation_from_source_3(latitude, longitude)
 
-    precipitations = [source_1_precipitation, source_2_precipitation, source_3_precipitation].compact
-    if precipitations.any?
-      average_precipitation = precipitations.sum / precipitations.size.to_f
-    else
-      average_precipitation = nil
-    end
+    precipitations_average = [source_1_precipitation[:average], source_2_precipitation, source_3_precipitation].compact
+    precipitations_max = [source_1_precipitation[:max], source_2_precipitation, source_3_precipitation].compact
+    precipitations_min = [source_1_precipitation[:min], source_2_precipitation, source_3_precipitation].compact
 
-    @average_precipitation = average_precipitation
+    if precipitations_average.any? && precipitations_max.any?
+      @average_precipitation = precipitations_average.sum / precipitations_average.size.to_f
+      @max_precipitation = precipitations_max.max
+      @min_precipitation = precipitations_min.min
+    else
+      @average_precipitation = nil
+      @max_precipitation = nil
+      @min_precipitation = nil
+    end
   end
 end
