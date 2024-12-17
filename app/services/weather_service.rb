@@ -5,7 +5,7 @@ require 'nokogiri'
 class WeatherService
   BASE_URL = 'https://weather.tsukumijima.net/api/forecast/city/'.freeze
   # 定数を削除して、メソッド引数から受け取る設計に変更
-  
+
   # 第一のソース用メソッド: city_idを引数で受け取る
   def self.fetch_precipitation_from_source_1(city_id)
     url = URI.parse("#{BASE_URL}#{city_id}")
@@ -16,7 +16,7 @@ class WeatherService
       chance_of_rain = weather_data['forecasts'][0]['chanceOfRain']
       if chance_of_rain
         # 対象となる時間帯キーのリスト
-        times = ['T00_06', 'T06_12', 'T12_18', 'T18_24']
+        times = %w[T00_06 T06_12 T12_18 T18_24]
         # 存在するキーに対して、値を整数化して配列に格納
         values = times.map { |t| chance_of_rain[t].to_i if chance_of_rain[t] }.compact
         if values.any?
@@ -25,14 +25,8 @@ class WeatherService
           min_value = values.min
           average_value = values.sum / values.size.to_f
           { max: max_value, average: average_value, min: min_value }
-        else
-          nil
         end
-      else
-        nil
       end
-    else
-      nil
     end
   rescue StandardError => e
     Rails.logger.error("Error fetching precipitation: #{e.message}")
@@ -53,8 +47,6 @@ class WeatherService
     if pops && pops[0]
       puts "地域: #{area_name}, 降水確率: #{pops[0]}%"
       pops[0].to_i
-    else
-      nil
     end
   rescue StandardError => e
     Rails.logger.error("Error fetching precipitation from JMA API: #{e.message}")
@@ -77,11 +69,7 @@ class WeatherService
       if rainfall_values.any?
         average_rainfall = (rainfall_values.sum / rainfall_values.size) * 100
         average_rainfall.round(2)
-      else
-        nil
       end
-    else
-      nil
     end
   rescue StandardError => e
     Rails.logger.error("Error fetching precipitation from Yahoo Weather API: #{e.message}")
@@ -101,7 +89,7 @@ class WeatherService
       date = forecast['date']
       chance_of_rain = forecast['chanceOfRain']
       if chance_of_rain
-        times = ['T00_06', 'T06_12', 'T12_18', 'T18_24']
+        times = %w[T00_06 T06_12 T12_18 T18_24]
         values = times.map { |t| chance_of_rain[t].to_i if chance_of_rain[t] }.compact
         if values.any?
           # 日ごとの平均値をvaluesに格納(ここでは1日1値とする)
