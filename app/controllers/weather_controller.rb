@@ -19,24 +19,21 @@ class WeatherController < ApplicationController
     latitude = coords[:lat]
     longitude = coords[:lon]
 
-    # WeatherServiceクラスのメソッドが位置情報や地域コードを引数でとるように実装済みであることを想定
-    source_1_precipitation = WeatherService.fetch_precipitation_from_source_1(region_code)
-    source_2_precipitation = WeatherService.fetch_precipitation_from_source_2(region_code)
-    source_3_precipitation = WeatherService.fetch_precipitation_from_source_3(latitude, longitude)
+    # 複数日、複数ソースを統合した予報データを取得
+    # @forecasts: [{date: '2024-12-18', average: X, max: Y, min:Z, source_count: N}, ...]
+    @forecasts = WeatherService.fetch_multi_day_combined_forecasts(region_code, latitude, longitude)
 
-    precipitations_average = [source_1_precipitation[:average], source_2_precipitation, source_3_precipitation].compact
-    precipitations_max = [source_1_precipitation[:max], source_2_precipitation, source_3_precipitation].compact
-    precipitations_min = [source_1_precipitation[:min], source_2_precipitation, source_3_precipitation].compact
-
-    if precipitations_average.any? && precipitations_max.any?
-      @average_precipitation = precipitations_average.sum / precipitations_average.size.to_f
-      @max_precipitation = precipitations_max.max
-      @min_precipitation = precipitations_min.min
+    # 当日分（1日目）のデータを使って@average_precipitationなどを表示したい場合は、
+    # @forecastsの最初の日付から取得するなど対応可能
+    today_forecast = @forecasts.find { |f| f[:date] == Date.today.to_s }
+    if today_forecast
+      @average_precipitation = today_forecast[:average]
+      @max_precipitation = today_forecast[:max]
+      @min_precipitation = today_forecast[:min]
     else
       @average_precipitation = nil
       @max_precipitation = nil
       @min_precipitation = nil
     end
-    @forecasts = WeatherService.fetch_forecasts(region_code)
   end
 end
