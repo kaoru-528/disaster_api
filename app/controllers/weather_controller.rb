@@ -1,4 +1,3 @@
-require 'redis'
 class WeatherController < ApplicationController
   def index
     region_code = params[:region_code].presence || '130010'

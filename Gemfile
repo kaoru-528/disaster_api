@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.3"
 
+
+gem 'sassc-rails'
+
 gem 'bootstrap', '~> 5.3.0'
 
 gem 'jquery-rails'
