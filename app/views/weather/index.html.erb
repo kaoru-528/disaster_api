@@ -1,5 +1,5 @@
 <div class="weather-container">
-  <h1 class="weather-title">降水確率の平均</h1>
+  <h1 class="weather-title">降水確率情報</h1>
 
   <%= form_with url: weather_index_path, method: :get, local: true, class: "weather-form" do |f| %>
     <div class="form-group">
@@ -31,6 +31,32 @@
   <% else %>
     <div class="error-card">
       <p>データが取得できませんでした。</p>
+    </div>
+  <% end %>
+
+  <% if @forecasts && @forecasts.any? %>
+    <div class="forecast-section">
+      <h2 class="forecast-title">今後の予報</h2>
+      <table class="forecast-table">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>平均降水確率</th>
+            <th>最大</th>
+            <th>最小</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @forecasts.each do |forecast| %>
+            <tr>
+              <td><%= forecast[:date] %></td>
+              <td><%= forecast[:average] ? "#{forecast[:average].round(1)}%" : "N/A" %></td>
+              <td><%= forecast[:max] ? "#{forecast[:max].round(1)}%" : "N/A" %></td>
+              <td><%= forecast[:min] ? "#{forecast[:min].round(1)}%" : "N/A" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   <% end %>
 </div>
