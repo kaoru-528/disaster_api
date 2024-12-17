@@ -1,15 +1,5 @@
 <div class="earthquake-container">
-  <h1 class="earthquake-title">YahooAPIの地震情報一覧</h1>
-
-  <% if @earthquakes.any? %>
-    <ul class="earthquake-list">
-      <% @earthquakes.each do |earthquake| %>
-        <li class="earthquake-item"><%= earthquake.label %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="earthquake-message">地震情報がありません。</p>
-  <% end %>
-
+  <h1 class="earthquake-title">地震情報</h1>
+  <%= render partial: 'yahoo_earthquake/index', locals: { earthquakes: @earthquakes } %>
   <%= render partial: 'tenki_earthquakes/index', locals: { earthquakes: @tenki_earthquakes } %>
 </div>
