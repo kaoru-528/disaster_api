@@ -37,5 +37,6 @@ class WeatherController < ApplicationController
       @max_precipitation = nil
       @min_precipitation = nil
     end
+    @forecasts = WeatherService.fetch_forecasts(region_code)
   end
 end

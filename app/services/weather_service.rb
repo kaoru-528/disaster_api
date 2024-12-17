@@ -87,4 +87,38 @@ class WeatherService
     Rails.logger.error("Error fetching precipitation from Yahoo Weather API: #{e.message}")
     nil
   end
+
+  # 新規追加メソッド: 複数日分の予報を取得
+  # @return [Array<Hash>] 例: [{ date: '2024-12-18', precipitation: 40.0 }, { date: '2024-12-19', precipitation: 30.0 }, ... ]
+  def self.fetch_forecasts(city_id)
+    url = URI.parse("#{BASE_URL}#{city_id}")
+    response = Net::HTTP.get(url)
+    weather_data = JSON.parse(response)
+
+    return [] unless weather_data['forecasts']
+
+    # forecastsは複数日分存在する想定
+    forecasts = weather_data['forecasts'].map do |forecast|
+      date = forecast['date']
+      chance_of_rain = forecast['chanceOfRain']
+
+      if chance_of_rain
+        times = ['T00_06', 'T06_12', 'T12_18', 'T18_24']
+        values = times.map { |t| chance_of_rain[t].to_i if chance_of_rain[t] }.compact
+        if values.any?
+          average_value = values.sum / values.size.to_f
+          { date: date, precipitation: average_value }
+        else
+          { date: date, precipitation: nil }
+        end
+      else
+        { date: date, precipitation: nil }
+      end
+    end
+
+    forecasts
+  rescue StandardError => e
+    Rails.logger.error("Error fetching multi-day forecasts: #{e.message}")
+    []
+  end
 end
