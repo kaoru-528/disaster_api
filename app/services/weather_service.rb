@@ -202,4 +202,16 @@ class WeatherService
       end
     end.sort_by { |h| h[:date] } # 日付でソート
   end
+
+  def self.notify_weather_to_slack(region_code, latitude, longitude, webhook_url)
+    forecasts = fetch_multi_day_combined_forecasts(region_code, latitude, longitude)
+
+    # メッセージ生成
+    message = forecasts.map do |forecast|
+      "日付: #{forecast[:date]}, 降水確率 (平均): #{forecast[:average]}%"
+    end.join("\n")
+
+    # Slack通知
+    SlackNotifier.notify(message, webhook_url)
+  end
 end

@@ -4,7 +4,7 @@ namespace :weather do
       # 地域コードと緯度経度を設定
       region_code = '130010' # 東京
       latitude, longitude = 35.6895, 139.6917 # 東京の緯度経度
-      webhook_url = 'https://hooks.slack.com/services/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'
+      webhook_url = 'https://hooks.slack.com/services/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'
 
       # WeatherServiceを利用してSlackに通知
       WeatherService.notify_weather_to_slack(region_code, latitude, longitude, webhook_url)
