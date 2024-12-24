@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EarthquakesController < ApplicationController
   def index
     @earthquakes = EarthquakeData.fetch

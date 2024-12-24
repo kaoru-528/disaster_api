@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 require 'nokogiri'
 
 class WeatherService
-  BASE_URL = 'https://weather.tsukumijima.net/api/forecast/city/'.freeze
+  BASE_URL = 'https://weather.tsukumijima.net/api/forecast/city/'
   # 定数を削除して、メソッド引数から受け取る設計に変更
 
   # 第一のソース用メソッド: city_idを引数で受け取る
@@ -18,7 +20,7 @@ class WeatherService
         # 対象となる時間帯キーのリスト
         times = %w[T00_06 T06_12 T12_18 T18_24]
         # 存在するキーに対して、値を整数化して配列に格納
-        values = times.map { |t| chance_of_rain[t].to_i if chance_of_rain[t] }.compact
+        values = times.map { |t| chance_of_rain[t]&.to_i }.compact
         if values.any?
           # 存在する値の平均
           max_value = values.max
@@ -90,7 +92,7 @@ class WeatherService
       chance_of_rain = forecast['chanceOfRain']
       if chance_of_rain
         times = %w[T00_06 T06_12 T12_18 T18_24]
-        values = times.map { |t| chance_of_rain[t].to_i if chance_of_rain[t] }.compact
+        values = times.map { |t| chance_of_rain[t]&.to_i }.compact
         if values.any?
           # 日ごとの平均値をvaluesに格納(ここでは1日1値とする)
           avg_value = values.sum / values.size.to_f
