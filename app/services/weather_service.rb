@@ -138,25 +138,25 @@ class WeatherService
   end
 
   # 複数日分の予報取得（Source 3: Yahoo Weather）
-  # YahooのAPIは単日しか取れない場合は別のエンドポイントを利用する必要があるかもしれません。
-  # ここでは仮に複数日のデータが取れるAPIがあると仮定した例を示します。
   def self.fetch_forecasts_from_source_3(latitude, longitude)
     # 仮の複数日分取得URL（実際は存在しない場合が多いので要調整）
     appid = 'dj00aiZpPUpKU2Nkd2Zxb2x1QiZzPWNvbnN1bWVyc2VjcmV0Jng9MTU-'
-    uri = URI("https://map.yahooapis.jp/weather/V1/multi_day_forecast?coordinates=#{longitude},#{latitude}&appid=#{appid}")
+    uri = URI("https://map.yahooapis.jp/weather/V1/place?coordinates=#{longitude},#{latitude}&appid=#{appid}")
 
     res = Net::HTTP.get_response(uri)
-    return [] unless res.is_a?(Net::HTTPSuccess)
 
     xml = Nokogiri::XML(res.body)
     namespace = { 'ns' => 'http://olp.yahooapis.jp/ydf/1.0' }
+    forecasts = xml.xpath('//ns:Weather', namespace)
 
-    # 仮ロジック: <Forecast date="2024-12-18"> <Rainfall>0.4</Rainfall> </Forecast> などを想定
-    forecasts = xml.xpath('//ns:Forecast', namespace)
-    forecasts.map do |f|
-      date = f['date'] # "2024-12-18"
-      rainfall_values = f.xpath('ns:Rainfall', namespace).map(&:text).map(&:to_f)
-      if rainfall_values.any?
+    forecasts.map do |forecast|
+      date_element = forecast.at_xpath('ns:Date', namespace)
+      rainfall_elements = forecast.xpath('ns:Rainfall', namespace)
+
+      date = date_element&.text
+      rainfall_values = rainfall_elements.map(&:text).map(&:to_f)
+
+      if date && rainfall_values.any?
         avg_rainfall = (rainfall_values.sum / rainfall_values.size) * 100
         { date: date, values: [avg_rainfall.round(2)] }
       else
@@ -164,7 +164,7 @@ class WeatherService
       end
     end
   rescue StandardError => e
-    Rails.logger.error("Error fetching multi-day forecasts from source 3: #{e.message}")
+    Rails.logger.error("Error parsing forecast data: #{e.message}")
     []
   end
 
@@ -177,6 +177,10 @@ class WeatherService
     # 全て結合
     all_data = [s1_data, s2_data, s3_data].flatten
 
+    all_data.each do |date|
+      date[:date] = Date.parse(date[:date]).to_s
+    end
+
     # 日付ごとにグルーピング
     grouped = all_data.group_by { |h| h[:date] }
 
@@ -187,7 +191,7 @@ class WeatherService
       all_values = entries.map { |e| e[:values] }.flatten.compact
       if all_values.any?
         {
-          date: date,
+          date: date, # 整形後の日付を使用
           average: (all_values.sum / all_values.size.to_f),
           max: all_values.max,
           min: all_values.min,
@@ -195,7 +199,7 @@ class WeatherService
         }
       else
         {
-          date: date,
+          date: date, # 整形後の日付を使用
           average: nil,
           max: nil,
           min: nil,
