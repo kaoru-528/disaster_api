@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # nethttp.rb
 require 'uri'
 require 'net/http'

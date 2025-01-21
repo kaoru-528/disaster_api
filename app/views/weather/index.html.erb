@@ -21,22 +21,9 @@
       <%= f.submit '天気を取得', class: "btn-submit" %>
     </div>
   <% end %>
-
-  <% if @average_precipitation %>
-    <div class="result-card">
-      <p>選択地域の平均降水確率: <span class="highlight"><%= @average_precipitation %>%</span></p>
-      <p>選択地域の最大降水確率: <span class="highlight"><%= @max_precipitation %>%</span></p>
-      <p>選択地域の最小降水確率: <span class="highlight"><%= @min_precipitation %>%</span></p>
-    </div>
-  <% else %>
-    <div class="error-card">
-      <p>データが取得できませんでした。</p>
-    </div>
-  <% end %>
-
+  
   <% if @forecasts && @forecasts.any? %>
     <div class="forecast-section">
-      <h2 class="forecast-title">今後の予報</h2>
       <table class="forecast-table">
         <thead>
           <tr>
@@ -57,6 +44,10 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+    <% else %>
+    <div class="error-card">
+      <p>データが取得できませんでした。</p>
     </div>
   <% end %>
 </div>

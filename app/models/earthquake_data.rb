@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'uri'
 require 'json'
@@ -9,10 +11,10 @@ class Earthquake
   end
 
   def label
-    "#{earthquake_type} " +
-      "#{@data['earthquake']['time']} " +
-      "震度#{scale} " +
-      "#{hypocenter} " +
+    "#{earthquake_type} " \
+      "#{@data['earthquake']['time']} " \
+      "震度#{scale} " \
+      "#{hypocenter} " \
       "#{tsunami_type}"
   end
 
@@ -66,8 +68,8 @@ class Tsunami
   end
 
   def label
-    '津波予報 ' +
-      "#{Time.parse(@data['time']).strftime('%d日%H時%M分')} " +
+    '津波予報 ' \
+      "#{Time.parse(@data['time']).strftime('%d日%H時%M分')} " \
       "#{@data['cancelled'] ? 'すべて解除' : '発表'}"
   end
 end
@@ -78,8 +80,8 @@ class Userquake
   end
 
   def label
-    '地震感知情報 ' +
-      "#{Time.parse(@data['time']).strftime('%d日%H時%M分')} " +
+    '地震感知情報 ' \
+      "#{Time.parse(@data['time']).strftime('%d日%H時%M分')} " \
       "#{@data['prefs'].sort_by { |_k, v| -v }.map { |k, v| "#{k}(#{v})" }.join(' ')}"
   end
 end
@@ -98,7 +100,7 @@ class EarthquakeData
 
     json.map do |record|
       clazz = code2class[record['code']]
-      clazz.new(record) if clazz
+      clazz&.new(record)
     end.compact
   end
 end

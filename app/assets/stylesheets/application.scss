@@ -246,3 +246,57 @@
     padding: 10px;
     border-radius: 5px;
   }
+  /* テーブル全体 */
+.forecast-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-top: 1cm;
+}
+
+/* テーブルヘッダー */
+.forecast-table thead th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  font-weight: bold;
+}
+
+/* テーブルボディ */
+.forecast-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.forecast-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.forecast-table tbody td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+/* テーブル行のホバー効果 */
+.forecast-table tbody tr:hover {
+  background-color: #e0f7fa;
+  cursor: pointer;
+}
+
+/* メディアクエリ: モバイル用レスポンシブ */
+@media (max-width: 600px) {
+  .forecast-table {
+    font-size: 0.9rem;
+  }
+
+  .forecast-section {
+    padding: 10px;
+  }
+
+  .forecast-section h1 {
+    font-size: 1.5rem;
+  }
+}
