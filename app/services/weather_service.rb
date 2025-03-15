@@ -140,7 +140,7 @@ class WeatherService
   # 複数日分の予報取得（Source 3: Yahoo Weather）
   def self.fetch_forecasts_from_source_3(latitude, longitude)
     # 仮の複数日分取得URL（実際は存在しない場合が多いので要調整）
-    appid = 'dj00aiZpPUpKU2Nkd2Zxb2x1QiZzPWNvbnN1bWVyc2VjcmV0Jng9MTU-'
+    # apid = 取得してくるAPIのID
     uri = URI("https://map.yahooapis.jp/weather/V1/place?coordinates=#{longitude},#{latitude}&appid=#{appid}")
 
     res = Net::HTTP.get_response(uri)
